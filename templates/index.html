@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thần Số Học</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Philosopher:wght@400;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="stars" id="stars"></div>
+
+    <div class="container">
+        <div class="header">
+            <h1>Thần Số Học</h1>
+            <p>Khám phá những con số định mệnh của bạn</p>
+        </div>
+
+        <form action="/" method="post">
+            <div class="input-section">
+                <div class="input-group">
+                    <label for="fullName">Họ và tên</label>
+                    <input type="text" id="fullName" name="fullName" placeholder="Nhập họ và tên của bạn">
+                </div>
+
+                <div class="input-group">
+                    <label for="birthday">Ngày sinh</label>
+                    <input type="text" id="birthday" name="birthday" placeholder="DD/MM/YYYY">
+                </div>
+
+                <button class="run-btn" id="calculateBtn" type="submit">XEM KẾT QUẢ</button>
+                <button class="refresh-btn" id="refreshBtn" type="button">NHẬP MỚI</button>
+            </div>
+        </form>
+
+        <div class="results-container hidden">
+            <!-- Life Path Section - Largest box in its own row -->
+            <div class="life-path-section">
+                <div class="life-path-title">Đường đời</div>
+                <div class="life-path-value" id="lifePath"></div>
+            </div>
+
+            <!-- Destiny and Destiny Challenge Section -->
+            <div class="section-title">Sứ mệnh & Thử thách</div>
+            <div class="paired-section">
+                <div class="result-card">
+                    <div class="result-title">Sứ mệnh</div>
+                    <div class="result-value" id="destiny"></div>
+                </div>
+
+                <div class="result-card">
+                    <div class="result-title">Thử thách Sứ mệnh</div>
+                    <div class="result-value" id="destinyChallenge"></div>
+                </div>
+            </div>
+
+            <!-- Soul and Soul Challenge Section -->
+            <div class="section-title">Linh hồn & Thử thách</div>
+            <div class="paired-section">
+                <div class="result-card">
+                    <div class="result-title">Linh hồn</div>
+                    <div class="result-value" id="soul"></div>
+                </div>
+
+                <div class="result-card">
+                    <div class="result-title">Thử thách Linh hồn</div>
+                    <div class="result-value" id="soulChallenge"></div>
+                </div>
+            </div>
+
+            <!-- Personality and Personality Challenge Section -->
+            <div class="section-title">Nhân cách & Thử thách</div>
+            <div class="paired-section">
+                <div class="result-card">
+                    <div class="result-title">Nhân cách</div>
+                    <div class="result-value" id="personality"></div>
+                </div>
+
+                <div class="result-card">
+                    <div class="result-title">Thử thách Nhân cách</div>
+                    <div class="result-value" id="personalityChallenge"></div>
+                </div>
+            </div>
+
+            <!-- Minor Attributes Section -->
+            <div class="section-title">Các chỉ số khác</div>
+            <div class="minor-section">
+                <div class="minor-card">
+                    <div class="minor-title">Thái độ</div>
+                    <div class="minor-value" id="attitude"></div>
+                </div>
+
+                <div class="minor-card">
+                    <div class="minor-title">Tài năng</div>
+                    <div class="minor-value" id="talent"></div>
+                </div>
+
+                <div class="minor-card">
+                    <div class="minor-title">Trưởng thành</div>
+                    <div class="minor-value" id="maturity"></div>
+                </div>
+
+                <div class="minor-card">
+                    <div class="minor-title">Tư duy lý trí</div>
+                    <div class="minor-value" id="rational"></div>
+                </div>
+
+                <div class="minor-card">
+                    <div class="minor-title">Vượt khó</div>
+                    <div class="minor-value" id="overcome"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>© 2025 Thần Số Học | Mọi quyền được bảo lưu</p>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
