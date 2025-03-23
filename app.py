@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, jsonify
 import sqlite3
 
 app = Flask(__name__)
@@ -106,12 +106,23 @@ def rational_thought_number(name, birth):
 def resilience_number(name):
     return reduce_to_single_digit_notin(destiny_number(''.join(word[0] for word in name.split())))
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/', methods=['GET']) # Chỉ chấp nhận GET method
 def index():
-    if request.method == 'POST':
-        full_name = request.form['fullName']
-        birthday = request.form['birthday']
+    """Hiển thị trang chủ."""
+    return render_template('index.html') # Chỉ trả về template index.html
 
+@app.route('/api/calculate', methods=['POST'])
+def calculate_api():
+    """API endpoint to calculate numerology results."""
+    data = request.get_json() # Nhận dữ liệu JSON từ request
+
+    if not data or 'fullName' not in data or 'birthday' not in data:
+        return jsonify({'error': 'Vui lòng cung cấp đầy đủ fullName và birthday'}), 400 # Báo lỗi nếu thiếu dữ liệu
+
+    full_name = data['fullName']
+    birthday = data['birthday']
+
+    try:
         life_path = life_path_number(birthday)
         destiny = destiny_number(full_name)
         destiny_challenge = destiny_challenge_number(full_name)
@@ -125,28 +136,32 @@ def index():
         rational = rational_thought_number(full_name, birthday)
         overcome = resilience_number(full_name)
 
+        results = {
+            'lifePath': life_path,
+            'destiny': destiny,
+            'destinyChallenge': destiny_challenge,
+            'soul': soul,
+            'soulChallenge': soul_challenge,
+            'personality': personality,
+            'personalityChallenge': personality_challenge,
+            'attitude': attitude,
+            'talent': talent,
+            'maturity': maturity,
+            'rational': rational,
+            'overcome': overcome
+        }
+
         conn = get_db_connection()
         cursor = conn.cursor()
         cursor.execute("INSERT INTO results (full_name, birthday, life_path, destiny, destiny_challenge, soul, soul_challenge, personality, personality_challenge, attitude, talent, maturity, rational, overcome) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
                       (full_name, birthday, life_path, destiny, destiny_challenge, soul, soul_challenge, personality, personality_challenge, attitude, talent, maturity, rational, overcome))
         conn.commit()
-        result_id = cursor.lastrowid
         conn.close()
 
-        return redirect(url_for('result', id=result_id))
+        return jsonify(results), 200 # Trả về kết quả dạng JSON
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500 # Xử lý lỗi và trả về JSON
 
-    return render_template('index.html')
-
-@app.route('/result/<int:id>')
-def result(id):
-    conn = get_db_connection()
-    result_data = conn.execute('SELECT * FROM results WHERE id = ?', (id,)).fetchone()
-    conn.close()
-
-    if result_data is None:
-        return "Không tìm thấy kết quả", 404
-
-    return render_template('result.html', result=result_data)
 
 if __name__ == '__main__':
     app.run(debug=True)
