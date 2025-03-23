@@ -1,36 +1,35 @@
 :root {
-    --primary-color: #7b5bb5;
-    --primary-light: #9d7fd0;
-    --secondary-color: #b8a1e3;
-    --accent-color: #e6a93b;
-    --text-color: #3a2a5e;
-    --light-text: #fff;
-    --card-bg: rgba(255, 255, 255, 0.9);
-    --card-border: rgba(123, 91, 181, 0.3);
-    --life-path-bg: linear-gradient(135deg, #9d7fd0, #7b5bb5);
-    --destiny-bg: linear-gradient(135deg, #a58bd6, #8e6bc7);
-    --soul-bg: linear-gradient(135deg, #9d7fd0, #8e6bc7);
-    --personality-bg: linear-gradient(135deg, #a58bd6, #8e6bc7);
-    --minor-bg: linear-gradient(135deg, #9d7fd0, #8e6bc7);
-    --main-bg: #e8e1f8;
+    --primary-color: #f0f0f0; /* Xám nhạt - Chữ tiêu đề, tiêu đề section */
+    --primary-light: #d0d0d0; /* Xám nhạt vừa - Chữ phụ, label input */
+    --secondary-color: #64b5f6; /* Xanh da trời nhạt - Button chính hover */
+    --accent-color: #ffca28; /* Vàng cam - Điểm nhấn, button chính */
+    --text-color: #e0e0e0; /* Trắng xám - Chữ chung, placeholder */
+    --light-text: #fff; /* Trắng - Chữ nổi bật */
+    --card-bg: rgba(255, 255, 255, 0.08); /* Nền card - trong suốt, hơi trắng */
+    --card-border: rgba(255, 255, 255, 0.1); /* Viền card - trong suốt, hơi trắng */
+    --life-path-bg: linear-gradient(135deg, #6a1b9a, #4527a0); /* Tím đậm - Đường đời */
+    --destiny-bg: linear-gradient(135deg, #3949ab, #283593); /* Xanh indigo - Sứ mệnh */
+    --soul-bg: linear-gradient(135deg, #303f9f, #1a237e); /* Xanh tím - Linh hồn */
+    --personality-bg: linear-gradient(135deg, #3949ab, #283593); /* Xanh indigo - Nhân cách */
+    --minor-bg: linear-gradient(135deg, #303f9f, #1a237e); /* Xanh tím - Chỉ số phụ */
+    --main-bg: #0d1117; /* Đen - Nền chính body */
 }
 
+/* Reset CSS và global styles */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Quicksand', sans-serif;
+    scroll-behavior: smooth;
 }
 
 body {
     background-color: var(--main-bg);
-    background-image:
-        radial-gradient(circle at 10% 20%, rgba(123, 91, 181, 0.1) 0%, transparent 20%),
-        radial-gradient(circle at 90% 80%, rgba(123, 91, 181, 0.1) 0%, transparent 20%),
-        radial-gradient(circle at 50% 50%, rgba(230, 169, 59, 0.05) 0%, transparent 50%);
     min-height: 100vh;
     display: flex;
-    justify-content: center;
+    flex-direction: column; /* Thay đổi thành column để footer ở dưới cùng */
+    justify-content: flex-start; /* Bắt đầu nội dung từ trên xuống */
     align-items: center;
     padding: 20px;
     color: var(--text-color);
@@ -45,9 +44,12 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M50 50 L100 0 L0 0 Z' fill='rgba(123, 91, 181, 0.03)'/%3E%3Cpath d='M50 50 L0 100 L100 100 Z' fill='rgba(123, 91, 181, 0.03)'/%3E%3Cpath d='M50 50 L0 0 L0 100 Z' fill='rgba(123, 91, 181, 0.03)'/%3E%3Cpath d='M50 50 L100 100 L100 0 Z' fill='rgba(123, 91, 181, 0.03)'/%3E%3C/svg%3E");
-    opacity: 0.5;
-    z-index: -1;
+    opacity: 0.7; /* Tăng opacity hình nền */
+    z-index: -2; /* Đặt z-index thấp hơn cả stars và container */
+    background-image: url('https://images.unsplash.com/photo-1505877036890-9c0847384d0e?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); /* Hình nền vũ trụ khác */
+    background-size: cover;
+    background-position: center;
+    filter: brightness(0.8) contrast(1.2); /* Chỉnh độ sáng và tương phản hình nền */
 }
 
 .stars {
@@ -57,37 +59,40 @@ body::before {
     width: 100%;
     height: 100%;
     pointer-events: none;
-    z-index: -1;
+    z-index: -1; /* Đặt z-index thấp hơn container */
+    background: transparent;
 }
 
 .star {
     position: absolute;
-    background-color: #7b5bb5;
+    background-color: var(--primary-light);
     border-radius: 50%;
     animation: twinkle 4s infinite;
+    opacity: 0.6; /* Giảm opacity sao */
+    box-shadow: 0 0 6px var(--primary-light); /* Tăng hiệu ứng glow sao */
 }
 
 @keyframes twinkle {
     0%, 100% {
-        opacity: 0.2;
+        opacity: 0.4; /* Sao mờ hơn */
     }
-
     50% {
-        opacity: 0.6;
+        opacity: 0.9; /* Sao sáng hơn ở giữa chu kỳ */
     }
 }
 
 .container {
     width: 100%;
     max-width: 900px;
-    background-color: rgba(255, 255, 255, 0.9);
-    backdrop-filter: blur(10px);
+    background-color: rgba(255, 255, 255, 0.03); /* Nền container trong suốt hơn nữa */
+    backdrop-filter: blur(30px); /* Tăng blur container */
     border-radius: 20px;
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1),
-        0 0 0 1px rgba(123, 91, 181, 0.2);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), /* Bóng đổ mạnh hơn */
+        0 0 0 1px rgba(255, 255, 255, 0.1); /* Viền trắng mỏng */
     overflow: hidden;
-    padding: 30px;
-    animation: fadeIn 0.8s ease-in-out;
+    padding: 40px; /* Tăng padding container */
+    margin-top: 40px; /* Thêm margin top cho container */
+    animation: fadeIn 1s ease-out; /* Thay đổi animation */
     position: relative;
     z-index: 1;
 }
@@ -99,17 +104,16 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 30 L60 0 L0 0 Z' fill='rgba(123, 91, 181, 0.03)'/%3E%3Cpath d='M30 30 L0 60 L60 60 Z' fill='rgba(123, 91, 181, 0.03)'/%3E%3Cpath d='M30 30 L0 0 L0 60 Z' fill='rgba(123, 91, 181, 0.03)'/%3E%3Cpath d='M30 30 L60 60 L60 0 Z' fill='rgba(123, 91, 181, 0.03)'/%3E%3C/svg%3E");
-    opacity: 0.5;
+    background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M40 40 L80 0 L0 0 Z' fill='rgba(255, 255, 255, 0.02)'/%3E%3Cpath d='M40 40 L0 80 L80 80 Z' fill='rgba(255, 255, 255, 0.02)'/%3E%3Cpath d='M40 40 L0 0 L0 80 Z' fill='rgba(255, 255, 255, 0.02)'/%3E%3Cpath d='M40 40 L80 80 L80 0 Z' fill='rgba(255, 255, 255, 0.02)'/%3E%3C/svg%3E");
+    opacity: 0.6; /* Tăng opacity pattern container */
     z-index: -1;
 }
 
 @keyframes fadeIn {
     from {
         opacity: 0;
-        transform: translateY(20px);
+        transform: translateY(30px); /* Dịch chuyển lên nhiều hơn */
     }
-
     to {
         opacity: 1;
         transform: translateY(0);
@@ -118,124 +122,133 @@ body::before {
 
 .header {
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 40px; /* Tăng margin bottom header */
     position: relative;
 }
 
 .header::after {
     content: '';
     display: block;
-    width: 80px;
-    height: 3px;
+    width: 100px; /* Tăng chiều rộng gạch ngang header */
+    height: 4px; /* Tăng độ dày gạch ngang header */
     background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
-    margin: 15px auto 0;
+    margin: 20px auto 0; /* Tăng margin top gạch ngang header */
 }
 
 .header h1 {
     color: var(--primary-color);
-    font-size: 2.5rem;
-    margin-bottom: 10px;
+    font-size: 3rem; /* Tăng font size tiêu đề */
+    margin-bottom: 15px; /* Tăng margin bottom tiêu đề */
     font-weight: 700;
     font-family: 'Philosopher', serif;
-    letter-spacing: 1px;
-    text-shadow: 0 2px 10px rgba(123, 91, 181, 0.3);
+    letter-spacing: 2px; /* Tăng letter spacing tiêu đề */
+    text-shadow: 0 3px 15px rgba(0, 0, 0, 0.5); /* Bóng đổ đậm hơn cho tiêu đề */
 }
 
 .header p {
-    color: var(--text-color);
-    font-size: 1rem;
-    opacity: 0.8;
+    color: var(--primary-light); /* Đổi màu chữ mô tả header */
+    font-size: 1.1rem; /* Tăng font size mô tả header */
+    opacity: 0.9; /* Tăng opacity mô tả header */
 }
 
 .input-section {
     display: flex;
     flex-wrap: wrap;
-    gap: 15px;
-    margin-bottom: 30px;
-    background-color: rgba(232, 225, 248, 0.5);
-    padding: 20px;
-    border-radius: 15px;
+    gap: 25px; /* Tăng gap input section */
+    margin-bottom: 40px; /* Tăng margin bottom input section */
+    background-color: rgba(255, 255, 255, 0.05); /* Nền input section trong suốt hơn */
+    padding: 30px; /* Tăng padding input section */
+    border-radius: 20px; /* Bo tròn input section */
     border: 1px solid var(--card-border);
-    align-items: center; /* Align items vertically in the center */
+    align-items: flex-start; /* Căn chỉnh input group lên trên */
 }
 
 .input-group {
     flex: 1;
-    min-width: 200px;
+    min-width: 250px; /* Tăng min-width input group */
 }
 
 .input-group label {
     display: block;
-    margin-bottom: 8px;
+    margin-bottom: 10px; /* Tăng margin bottom label */
     font-weight: 600;
-    color: var(--primary-color);
+    color: var(--primary-light); /* Đổi màu label */
+    font-size: 1.1rem; /* Tăng font size label */
 }
 
 .input-group input {
     width: 100%;
-    padding: 12px 15px;
-    background-color: rgba(255, 255, 255, 0.9);
-    border: 1px solid rgba(123, 91, 181, 0.3);
-    border-radius: 10px;
-    font-size: 1rem;
+    padding: 15px 20px; /* Tăng padding input */
+    background-color: rgba(255, 255, 255, 0.1); /* Nền input trong suốt hơn */
+    border: 1px solid var(--card-border);
+    border-radius: 12px; /* Bo tròn input */
+    font-size: 1.1rem; /* Tăng font size input */
     transition: all 0.3s ease;
     color: var(--text-color);
 }
 
 .input-group input::placeholder {
-    color: rgba(123, 91, 181, 0.5);
+    color: var(--text-color); /* Đổi màu placeholder */
+    opacity: 0.7; /* Giảm opacity placeholder */
 }
 
 .input-group input:focus {
     outline: none;
     border-color: var(--accent-color);
-    box-shadow: 0 0 0 3px rgba(230, 169, 59, 0.2);
+    box-shadow: 0 0 0 4px rgba(255, 202, 40, 0.3); /* Box shadow lớn hơn khi focus */
 }
 
-.run-btn {
-    background: linear-gradient(135deg, var(--accent-color), #d99b2e);
-    color: white;
+.button-group {
+    width: 100%; /* Button group full width */
+    display: flex;
+    justify-content: center; /* Căn giữa button */
+    gap: 20px; /* Khoảng cách giữa các button */
+    margin-top: 20px; /* Thêm margin top button group */
+}
+
+.run-btn, .refresh-btn {
+    background: linear-gradient(135deg, var(--accent-color), #e6a93b);
+    color: var(--text-color); /* Đổi màu chữ button */
     border: none;
-    border-radius: 10px;
-    padding: 12px 25px;
-    font-size: 1rem;
+    border-radius: 12px; /* Bo tròn button */
+    padding: 15px 30px; /* Tăng padding button */
+    font-size: 1.1rem; /* Tăng font size button */
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
-    margin-left: 10px;
-    box-shadow: 0 4px 15px rgba(230, 169, 59, 0.3);
+    box-shadow: 0 6px 20px rgba(255, 202, 40, 0.3); /* Bóng đổ lớn hơn cho button */
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5); /* Bóng đổ chữ button */
+    min-width: 150px; /* Min width button */
 }
 
 .run-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(230, 169, 59, 0.4);
+    transform: translateY(-3px); /* Hiệu ứng hover mạnh hơn */
+    background: linear-gradient(135deg, var(--secondary-color), #64b5f6); /* Đổi màu hover */
+    box-shadow: 0 8px 25px rgba(100, 181, 246, 0.4); /* Bóng đổ hover khác */
+    color: var(--light-text); /* Đổi màu chữ hover */
 }
 
 .refresh-btn {
-    display: none; /* Hidden by default */
-    background: var(--secondary-color);
-    color: white;
-    border: none;
-    border-radius: 10px;
-    padding: 12px 25px;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    margin-left: 10px;
-    box-shadow: 0 4px 15px rgba(184, 161, 227, 0.3);
+    background: rgba(255, 255, 255, 0.05); /* Nền refresh button trong suốt */
+    border: 1px solid var(--card-border); /* Viền refresh button */
+    color: var(--text-color); /* Màu chữ refresh button */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Bóng đổ nhẹ refresh button */
+    text-shadow: none; /* Loại bỏ bóng đổ chữ refresh button */
 }
 
 .refresh-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(184, 161, 227, 0.4);
+    transform: translateY(-3px); /* Hiệu ứng hover refresh button */
+    background-color: rgba(255, 255, 255, 0.1); /* Nền refresh button sáng hơn khi hover */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Bóng đổ hover refresh button */
+    color: var(--light-text); /* Đổi màu chữ hover refresh button */
+    border-color: var(--secondary-color); /* Đổi màu viền hover refresh button */
 }
-
 
 .results-container {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 25px; /* Tăng gap results container */
+    margin-bottom: 40px; /* Tăng margin bottom results container */
 }
 
 .results-container.hidden {
@@ -245,18 +258,20 @@ body::before {
 .section-title {
     font-family: 'Philosopher', serif;
     color: var(--primary-color);
-    margin-bottom: 10px;
-    font-size: 1.2rem;
+    margin-bottom: 15px; /* Tăng margin bottom section title */
+    font-size: 1.5rem; /* Tăng font size section title */
     font-weight: 600;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4); /* Bóng đổ section title */
+    text-align: center; /* Căn giữa section title */
 }
 
-/* Life Path Section - Largest box in its own row */
+/* Life Path Section */
 .life-path-section {
     background: var(--life-path-bg);
-    border-radius: 15px;
-    padding: 25px;
+    border-radius: 20px; /* Bo tròn life path section */
+    padding: 30px; /* Tăng padding life path section */
     text-align: center;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* Bóng đổ lớn hơn life path section */
     border: 1px solid var(--card-border);
     position: relative;
     overflow: hidden;
@@ -269,26 +284,27 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='50' cy='50' r='40' stroke='rgba(255, 255, 255, 0.2)' stroke-width='1' fill='none'/%3E%3Ccircle cx='50' cy='50' r='30' stroke='rgba(255, 255, 255, 0.2)' stroke-width='1' fill='none'/%3E%3Ccircle cx='50' cy='50' r='20' stroke='rgba(255, 255, 255, 0.2)' stroke-width='1' fill='none'/%3E%3C/svg%3E");
-    opacity: 0.5;
+    background-image: url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='60' cy='60' r='50' stroke='rgba(255, 255, 255, 0.1)' stroke-width='2' fill='none'/%3E%3Ccircle cx='60' cy='60' r='40' stroke='rgba(255, 255, 255, 0.1)' stroke-width='2' fill='none'/%3E%3Ccircle cx='60' cy='60' r='30' stroke='rgba(255, 255, 255, 0.1)' stroke-width='2' fill='none'/%3E%3C/svg%3E"); /* Pattern vòng tròn lớn hơn */
+    opacity: 0.4; /* Giảm opacity pattern life path section */
     z-index: 0;
 }
 
 .life-path-title {
-    font-size: 1.5rem;
+    font-size: 1.8rem; /* Tăng font size life path title */
     font-weight: 600;
-    margin-bottom: 15px;
-    color: white;
+    margin-bottom: 20px; /* Tăng margin bottom life path title */
+    color: var(--light-text); /* Đổi màu life path title */
     position: relative;
     z-index: 1;
     font-family: 'Philosopher', serif;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6); /* Bóng đổ life path title */
 }
 
 .life-path-value {
-    font-size: 4rem;
+    font-size: 5rem; /* Tăng font size life path value */
     font-weight: 700;
-    color: white;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    color: var(--light-text); /* Đổi màu life path value */
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.8); /* Bóng đổ mạnh hơn life path value */
     position: relative;
     z-index: 1;
 }
@@ -296,11 +312,11 @@ body::before {
 /* Paired sections */
 .paired-section {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Minmax card paired section */
+    gap: 25px; /* Tăng gap paired section */
 }
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
     .paired-section {
         grid-template-columns: 1fr;
     }
@@ -308,10 +324,10 @@ body::before {
 
 .result-card {
     background: var(--destiny-bg);
-    border-radius: 15px;
-    padding: 20px;
+    border-radius: 20px; /* Bo tròn result card */
+    padding: 25px; /* Tăng padding result card */
     text-align: center;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* Bóng đổ lớn hơn result card */
     border: 1px solid var(--card-border);
     transition: all 0.3s ease;
     position: relative;
@@ -325,112 +341,201 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 30m-25 0a25 25 0 1 0 50 0a25 25 0 1 0 -50 0' stroke='rgba(255, 255, 255, 0.2)' stroke-width='1' fill='none'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M40 40m-35 0a35 35 0 1 0 70 0a35 35 0 1 0 -70 0' stroke='rgba(255, 255, 255, 0.1)' stroke-width='2' fill='none'/%3E%3C/svg%3E"); /* Pattern vòng tròn lớn hơn result card */
     opacity: 0.3;
     z-index: 0;
 }
 
 .result-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    transform: translateY(-8px); /* Hiệu ứng hover mạnh hơn result card */
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3); /* Bóng đổ hover lớn hơn result card */
 }
 
 .result-title {
-    font-size: 1.1rem;
+    font-size: 1.3rem; /* Tăng font size result title */
     font-weight: 500;
-    margin-bottom: 10px;
-    color: white;
+    margin-bottom: 12px; /* Tăng margin bottom result title */
+    color: var(--light-text); /* Đổi màu result title */
     position: relative;
     z-index: 1;
     font-family: 'Philosopher', serif;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5); /* Bóng đổ result title */
 }
 
 .result-value {
-    font-size: 2.5rem;
+    font-size: 3rem; /* Tăng font size result value */
     font-weight: 700;
-    color: white;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
-    position: relative;
-    z-index: 1;
+    color: var(--light-text); /* Đổi màu result value */
+    text-shadow: 0 0 12px rgba(255, 255, 255, 0.8); /* Bóng đổ mạnh hơn result value */
 }
 
 /* Minor attributes section */
 .minor-section {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 15px;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Minmax card minor section */
+    gap: 20px; /* Tăng gap minor section */
 }
 
 .minor-card {
     background: var(--minor-bg);
-    border-radius: 12px;
-    padding: 15px;
+    border-radius: 15px; /* Bo tròn minor card */
+    padding: 20px; /* Tăng padding minor card */
     text-align: center;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Bóng đổ lớn hơn minor card */
     border: 1px solid var(--card-border);
     transition: all 0.3s ease;
 }
 
 .minor-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+    transform: translateY(-5px); /* Hiệu ứng hover mạnh hơn minor card */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25); /* Bóng đổ hover lớn hơn minor card */
 }
 
 .minor-title {
-    font-size: 0.9rem;
+    font-size: 1rem; /* Tăng font size minor title */
     font-weight: 500;
-    margin-bottom: 8px;
-    color: white;
+    margin-bottom: 10px; /* Tăng margin bottom minor title */
+    color: var(--light-text); /* Đổi màu minor title */
     font-family: 'Philosopher', serif;
+    text-shadow: 0 1px 5px rgba(0, 0, 0, 0.4); /* Bóng đổ minor title */
 }
 
 .minor-value {
-    font-size: 2rem;
+    font-size: 2.5rem; /* Tăng font size minor value */
     font-weight: 700;
-    color: white;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    color: var(--light-text); /* Đổi màu minor value */
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.6); /* Bóng đổ mạnh hơn minor value */
 }
 
 .footer {
     text-align: center;
-    margin-top: 40px;
-    color: var(--text-color);
+    margin-top: 50px; /* Tăng margin top footer */
+    padding-bottom: 30px; /* Thêm padding bottom footer */
+    color: var(--primary-light); /* Đổi màu chữ footer */
     font-size: 0.9rem;
-    opacity: 0.7;
+    opacity: 0.8; /* Tăng opacity footer */
+    border-top: 1px solid var(--card-border); /* Thêm border top footer */
+    padding-top: 20px; /* Thêm padding top footer */
 }
 
+/* Responsive design */
 @media (max-width: 768px) {
     .container {
-        padding: 20px;
+        padding: 30px; /* Giảm padding container trên mobile */
+        margin-top: 20px; /* Giảm margin top container trên mobile */
     }
 
     .header h1 {
-        font-size: 2rem;
+        font-size: 2.5rem; /* Giảm font size tiêu đề mobile */
     }
 
     .life-path-value {
-        font-size: 3.5rem;
+        font-size: 4rem; /* Giảm font size life path value mobile */
     }
 
     .result-value {
-        font-size: 2.2rem;
+        font-size: 2.5rem; /* Giảm font size result value mobile */
     }
 
     .minor-section {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(2, 1fr); /* 2 cột minor section trên mobile */
     }
 }
 
 @media (max-width: 480px) {
-    .input-section {
-        flex-direction: column;
+    .container {
+        padding: 20px; /* Giảm padding container trên mobile nhỏ */
+        margin-top: 10px; /* Giảm margin top container trên mobile nhỏ */
+        border-radius: 15px; /* Giảm bo tròn container mobile nhỏ */
     }
 
-    .minor-section {
-        grid-template-columns: 1fr;
+    .header h1 {
+        font-size: 2rem; /* Giảm font size tiêu đề mobile nhỏ */
+        margin-bottom: 10px; /* Giảm margin bottom tiêu đề mobile nhỏ */
+    }
+
+    .header p {
+        font-size: 1rem; /* Giảm font size mô tả header mobile nhỏ */
+    }
+
+    .input-section {
+        flex-direction: column; /* Input section thành column trên mobile nhỏ */
+        padding: 20px; /* Giảm padding input section mobile nhỏ */
+        border-radius: 15px; /* Giảm bo tròn input section mobile nhỏ */
+        gap: 15px; /* Giảm gap input section mobile nhỏ */
+        margin-bottom: 30px; /* Giảm margin bottom input section mobile nhỏ */
+    }
+
+    .input-group {
+        min-width: auto; /* Min width auto input group mobile nhỏ */
+    }
+
+    .input-group label {
+        margin-bottom: 5px; /* Giảm margin bottom label mobile nhỏ */
+        font-size: 1rem; /* Giảm font size label mobile nhỏ */
+    }
+
+    .input-group input {
+        padding: 12px 15px; /* Giảm padding input mobile nhỏ */
+        font-size: 1rem; /* Giảm font size input mobile nhỏ */
+        border-radius: 10px; /* Giảm bo tròn input mobile nhỏ */
+    }
+
+    .button-group {
+        flex-direction: column; /* Button group thành column mobile nhỏ */
+        gap: 15px; /* Giảm gap button group mobile nhỏ */
+        margin-top: 15px; /* Giảm margin top button group mobile nhỏ */
+    }
+
+    .run-btn, .refresh-btn {
+        padding: 12px 25px; /* Giảm padding button mobile nhỏ */
+        font-size: 1rem; /* Giảm font size button mobile nhỏ */
+        border-radius: 10px; /* Giảm bo tròn button mobile nhỏ */
+        min-width: auto; /* Min width auto button mobile nhỏ */
+        width: 100%; /* Button full width mobile nhỏ */
+    }
+
+    .results-container {
+        gap: 20px; /* Giảm gap results container mobile nhỏ */
+        margin-bottom: 30px; /* Giảm margin bottom results container mobile nhỏ */
+    }
+
+    .section-title {
+        font-size: 1.3rem; /* Giảm font size section title mobile nhỏ */
+        margin-bottom: 8px; /* Giảm margin bottom section title mobile nhỏ */
     }
 
     .life-path-value {
-        font-size: 3rem;
+        font-size: 3.5rem; /* Giảm font size life path value mobile nhỏ */
+    }
+
+    .result-value {
+        font-size: 2rem; /* Giảm font size result value mobile nhỏ */
+    }
+
+    .minor-section {
+        grid-template-columns: 1fr; /* 1 cột minor section trên mobile nhỏ */
+        gap: 15px; /* Giảm gap minor section mobile nhỏ */
+    }
+
+    .minor-card {
+        padding: 15px; /* Giảm padding minor card mobile nhỏ */
+        border-radius: 10px; /* Giảm bo tròn minor card mobile nhỏ */
+    }
+
+    .minor-title {
+        font-size: 0.9rem; /* Giảm font size minor title mobile nhỏ */
+        margin-bottom: 5px; /* Giảm margin bottom minor title mobile nhỏ */
+    }
+
+    .minor-value {
+        font-size: 2rem; /* Giảm font size minor value mobile nhỏ */
+    }
+
+    .footer {
+        margin-top: 30px; /* Giảm margin top footer mobile nhỏ */
+        padding-bottom: 20px; /* Giảm padding bottom footer mobile nhỏ */
+        font-size: 0.8rem; /* Giảm font size footer mobile nhỏ */
+        padding-top: 15px; /* Giảm padding top footer mobile nhỏ */
     }
 }
