@@ -62,13 +62,36 @@
                 formElement.addEventListener('submit', function(event) {
                     event.preventDefault(); // Chặn hành vi submit form mặc định
 
-                    const fullName = document.getElementById('fullName').value;
+                    const fullName = document.getElementById('fullName').value.trim(); // Thêm .trim() để loại bỏ khoảng trắng đầu cuối
                     const birthday = document.getElementById('birthday').value;
 
-                    if (!fullName || !birthday) {
-                        alert('Vui lòng nhập đầy đủ Họ và tên và Ngày sinh.');
-                        return;
+                    // Frontend Validation (Bước 3 - Thêm validation ở đây)
+                    if (!fullName) {
+                        alert('Vui lòng nhập đầy đủ Họ và tên.');
+                        return; // Dừng lại nếu validation thất bại
                     }
+
+                    if (!birthday) {
+                        alert('Vui lòng nhập Ngày sinh.');
+                        return; // Dừng lại nếu validation thất bại
+                    }
+
+                    // Validate birthday format DD/MM/YYYY (chấp nhận cả YYYY-MM-DD từ datepicker)
+                    const birthdayRegex = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[012])\/\d{4}$/;
+                    const birthdayRegexDatePicker = /^\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/; // Định dạng YYYY-MM-DD từ datepicker
+
+                    if (!birthdayRegex.test(birthday) && !birthdayRegexDatePicker.test(birthday)) {
+                        alert('Ngày sinh không đúng định dạng. Vui lòng nhập theo định dạng DD/MM/YYYY.');
+                        return; // Dừng lại nếu validation thất bại
+                    }
+
+                    // Convert date format from YYYY-MM-DD to DD/MM/YYYY for API
+                    const birthdayValue = new Date(birthday); // Tạo đối tượng Date từ giá trị input datepicker (YYYY-MM-DD)
+                    const day = String(birthdayValue.getDate()).padStart(2, '0'); // Lấy ngày, thêm padding 0 nếu cần
+                    const month = String(birthdayValue.getMonth() + 1).padStart(2, '0'); // Lấy tháng (getMonth() trả về tháng 0-11), +1 và thêm padding 0
+                    const year = birthdayValue.getFullYear(); // Lấy năm
+
+                    const formattedBirthday = `${day}/${month}/${year}`; // Tạo chuỗi định dạng DD/MM/YYYY
 
                     // Gọi API /api/calculate bằng fetch
                     fetch('/api/calculate', {
@@ -76,7 +99,7 @@
                         headers: {
                             'Content-Type': 'application/json' // Báo cho server biết dữ liệu là JSON
                         },
-                        body: JSON.stringify({ fullName: fullName, birthday: birthday }) // Gửi dữ liệu JSON
+                        body: JSON.stringify({ fullName: fullName, birthday: formattedBirthday }) // Gửi dữ liệu JSON với formattedBirthday
                     })
                     .then(response => {
                         if (!response.ok) {

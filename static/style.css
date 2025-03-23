@@ -104,7 +104,7 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M40 40 L80 0 L0 0 Z' fill='rgba(255, 255, 255, 0.02)'/%3E%3Cpath d='M40 40 L0 80 L80 80 Z' fill='rgba(255, 255, 255, 0.02)'/%3E%3Cpath d='M40 40 L0 0 L0 80 Z' fill='rgba(255, 255, 255, 0.02)'/%3E%3Cpath d='M40 40 L80 80 L80 0 Z' fill='rgba(255, 255, 255, 0.02)'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M40 40 L80 0 L0 0 Z' fill='rgba(255, 255, 255, 0.02)'/%3E%3Cpath d='M40 40 L0 80 L80 80 Z' fill='rgba(255, 255, 255, 0.02)'/%3E%3Cpath d='M40 40 L0 0 L0 60 Z' fill='rgba(255, 255, 255, 0.02)'/%3E%3Cpath d='M40 40 L60 60 L60 0 Z' fill='rgba(255, 255, 255, 0.02)'/%3E%3C/svg%3E");
     opacity: 0.6; /* Tăng opacity pattern container */
     z-index: -1;
 }
@@ -199,33 +199,38 @@ body::before {
 }
 
 .button-group {
-    width: 100%; /* Button group full width */
+    width: auto; /* Điều chỉnh width về auto để button group co lại vừa đủ nội dung */
     display: flex;
-    justify-content: center; /* Căn giữa button */
-    gap: 20px; /* Khoảng cách giữa các button */
-    margin-top: 20px; /* Thêm margin top button group */
+    justify-content: flex-start; /* Căn button về bên trái trong button group */
+    gap: 10px; /* Giảm gap button group trên desktop */
+    margin-top: 0; /* Loại bỏ margin top button group trên desktop */
+    margin-left: 10px; /* Thêm margin left để căn chỉnh button bên phải input */
 }
 
 .run-btn, .refresh-btn {
     background: linear-gradient(135deg, var(--accent-color), #e6a93b);
     color: var(--text-color); /* Đổi màu chữ button */
     border: none;
-    border-radius: 12px; /* Bo tròn button */
-    padding: 15px 30px; /* Tăng padding button */
-    font-size: 1.1rem; /* Tăng font size button */
+    border-radius: 10px; /* Bo tròn button */
+    padding: 12px 25px; /* Giảm padding button trên desktop */
+    font-size: 1rem; /* Giảm font size button trên desktop */
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 6px 20px rgba(255, 202, 40, 0.3); /* Bóng đổ lớn hơn cho button */
+    box-shadow: 0 4px 15px rgba(255, 202, 40, 0.3); /* Bóng đổ button */
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5); /* Bóng đổ chữ button */
-    min-width: 150px; /* Min width button */
+    min-width: auto; /* Min width auto button desktop */
+    width: auto; /* Width auto button desktop */
+    display: inline-block; /* Hiển thị inline-block để button nằm trên cùng hàng với input */
+    margin-left: 0; /* Loại bỏ margin left button desktop */
+    margin-right: 0; /* Loại bỏ margin right button desktop */
 }
 
 .run-btn:hover {
-    transform: translateY(-3px); /* Hiệu ứng hover mạnh hơn */
-    background: linear-gradient(135deg, var(--secondary-color), #64b5f6); /* Đổi màu hover */
-    box-shadow: 0 8px 25px rgba(100, 181, 246, 0.4); /* Bóng đổ hover khác */
-    color: var(--light-text); /* Đổi màu chữ hover */
+    transform: translateY(-2px);
+    background: linear-gradient(135deg, var(--secondary-color), #64b5f6);
+    box-shadow: 0 6px 20px rgba(100, 181, 246, 0.4);
+    color: var(--light-text);
 }
 
 .refresh-btn {
@@ -237,7 +242,7 @@ body::before {
 }
 
 .refresh-btn:hover {
-    transform: translateY(-3px); /* Hiệu ứng hover refresh button */
+    transform: translateY(-2px);
     background-color: rgba(255, 255, 255, 0.1); /* Nền refresh button sáng hơn khi hover */
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Bóng đổ hover refresh button */
     color: var(--light-text); /* Đổi màu chữ hover refresh button */
@@ -387,14 +392,14 @@ body::before {
 }
 
 .minor-card:hover {
-    transform: translateY(-5px); /* Hiệu ứng hover mạnh hơn minor card */
+    transform: translateY(-3px); /* Hiệu ứng hover mạnh hơn minor card */
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25); /* Bóng đổ hover lớn hơn minor card */
 }
 
 .minor-title {
     font-size: 1rem; /* Tăng font size minor title */
     font-weight: 500;
-    margin-bottom: 10px; /* Tăng margin bottom minor title */
+    margin-bottom: 8px; /* Tăng margin bottom minor title */
     color: var(--light-text); /* Đổi màu minor title */
     font-family: 'Philosopher', serif;
     text-shadow: 0 1px 5px rgba(0, 0, 0, 0.4); /* Bóng đổ minor title */
@@ -418,124 +423,294 @@ body::before {
     padding-top: 20px; /* Thêm padding top footer */
 }
 
+/* Style cho tiêu đề kết quả */
+.results-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.results-header h2 {
+    color: var(--primary-color);
+    font-size: 2rem;
+    font-family: 'Philosopher', serif;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Style cho thông tin đầu vào (Tên, Ngày sinh) */
+.input-info {
+    text-align: center;
+    margin-bottom: 20px;
+    color: var(--primary-light);
+    font-style: italic;
+    opacity: 0.8;
+}
+
+.input-info p {
+    margin-bottom: 5px;
+}
+
+.new-lookup-button {
+    text-align: center;
+    margin-top: 30px;
+}
+
+/* Ẩn nút refresh cũ (nếu muốn) */
+#refreshBtn {
+    display: none !important; /* Ẩn hoàn toàn nút refresh cũ */
+}
+
+
 /* Responsive design */
-@media (max-width: 768px) {
+@media (max-width: 992px) { /* Thêm breakpoint cho tablet (992px) */
     .container {
-        padding: 30px; /* Giảm padding container trên mobile */
-        margin-top: 20px; /* Giảm margin top container trên mobile */
+        max-width: 768px; /* Giảm max-width container cho tablet */
+        padding: 35px; /* Giảm padding container tablet */
+        margin-top: 30px; /* Giảm margin top container tablet */
     }
 
     .header h1 {
-        font-size: 2.5rem; /* Giảm font size tiêu đề mobile */
+        font-size: 2.8rem; /* Giảm font size tiêu đề tablet */
     }
 
     .life-path-value {
-        font-size: 4rem; /* Giảm font size life path value mobile */
+        font-size: 4.5rem; /* Giảm font size life path value tablet */
     }
 
     .result-value {
-        font-size: 2.5rem; /* Giảm font size result value mobile */
+        font-size: 2.3rem; /* Giảm font size result value tablet */
     }
 
     .minor-section {
-        grid-template-columns: repeat(2, 1fr); /* 2 cột minor section trên mobile */
+        grid-template-columns: repeat(3, 1fr); /* 3 cột minor section trên tablet */
     }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 768px) { /* Breakpoint cho mobile lớn (768px) */
     .container {
-        padding: 20px; /* Giảm padding container trên mobile nhỏ */
-        margin-top: 10px; /* Giảm margin top container trên mobile nhỏ */
-        border-radius: 15px; /* Giảm bo tròn container mobile nhỏ */
+        max-width: 540px; /* Giảm max-width container cho mobile lớn */
+        padding: 25px; /* Giảm padding container mobile lớn */
+        margin-top: 20px; /* Giảm margin top container mobile lớn */
     }
 
     .header h1 {
-        font-size: 2rem; /* Giảm font size tiêu đề mobile nhỏ */
-        margin-bottom: 10px; /* Giảm margin bottom tiêu đề mobile nhỏ */
-    }
-
-    .header p {
-        font-size: 1rem; /* Giảm font size mô tả header mobile nhỏ */
-    }
-
-    .input-section {
-        flex-direction: column; /* Input section thành column trên mobile nhỏ */
-        padding: 20px; /* Giảm padding input section mobile nhỏ */
-        border-radius: 15px; /* Giảm bo tròn input section mobile nhỏ */
-        gap: 15px; /* Giảm gap input section mobile nhỏ */
-        margin-bottom: 30px; /* Giảm margin bottom input section mobile nhỏ */
-    }
-
-    .input-group {
-        min-width: auto; /* Min width auto input group mobile nhỏ */
-    }
-
-    .input-group label {
-        margin-bottom: 5px; /* Giảm margin bottom label mobile nhỏ */
-        font-size: 1rem; /* Giảm font size label mobile nhỏ */
-    }
-
-    .input-group input {
-        padding: 12px 15px; /* Giảm padding input mobile nhỏ */
-        font-size: 1rem; /* Giảm font size input mobile nhỏ */
-        border-radius: 10px; /* Giảm bo tròn input mobile nhỏ */
-    }
-
-    .button-group {
-        flex-direction: column; /* Button group thành column mobile nhỏ */
-        gap: 15px; /* Giảm gap button group mobile nhỏ */
-        margin-top: 15px; /* Giảm margin top button group mobile nhỏ */
-    }
-
-    .run-btn, .refresh-btn {
-        padding: 12px 25px; /* Giảm padding button mobile nhỏ */
-        font-size: 1rem; /* Giảm font size button mobile nhỏ */
-        border-radius: 10px; /* Giảm bo tròn button mobile nhỏ */
-        min-width: auto; /* Min width auto button mobile nhỏ */
-        width: 100%; /* Button full width mobile nhỏ */
-    }
-
-    .results-container {
-        gap: 20px; /* Giảm gap results container mobile nhỏ */
-        margin-bottom: 30px; /* Giảm margin bottom results container mobile nhỏ */
-    }
-
-    .section-title {
-        font-size: 1.3rem; /* Giảm font size section title mobile nhỏ */
-        margin-bottom: 8px; /* Giảm margin bottom section title mobile nhỏ */
+        font-size: 2.5rem; /* Giảm font size tiêu đề mobile lớn */
     }
 
     .life-path-value {
-        font-size: 3.5rem; /* Giảm font size life path value mobile nhỏ */
+        font-size: 4rem; /* Giảm font size life path value mobile lớn */
     }
 
     .result-value {
-        font-size: 2rem; /* Giảm font size result value mobile nhỏ */
+        font-size: 2.2rem; /* Giảm font size result value mobile lớn */
     }
 
     .minor-section {
-        grid-template-columns: 1fr; /* 1 cột minor section trên mobile nhỏ */
-        gap: 15px; /* Giảm gap minor section mobile nhỏ */
+        grid-template-columns: repeat(2, 1fr); /* 2 cột minor section trên mobile lớn */
+    }
+}
+
+@media (max-width: 576px) { /* Breakpoint cho mobile vừa (576px) */
+    body {
+        padding: 10px; /* Giảm padding body mobile vừa */
+    }
+
+    .container {
+        padding: 20px; /* Giảm padding container mobile vừa */
+        margin-top: 10px; /* Giảm margin top container mobile vừa */
+        border-radius: 15px; /* Giảm bo tròn container mobile vừa */
+    }
+
+    .header h1 {
+        font-size: 2rem; /* Giảm font size tiêu đề mobile vừa */
+        margin-bottom: 10px; /* Giảm margin bottom tiêu đề mobile vừa */
+    }
+
+    .header p {
+        font-size: 1rem; /* Giảm font size mô tả header mobile vừa */
+    }
+
+    .input-section {
+        flex-direction: column; /* Input section thành column trên mobile vừa */
+        padding: 20px; /* Giảm padding input section mobile vừa */
+        border-radius: 15px; /* Giảm bo tròn input section mobile vừa */
+        gap: 15px; /* Giảm gap input section mobile vừa */
+        margin-bottom: 30px; /* Giảm margin bottom input section mobile vừa */
+    }
+
+    .input-group {
+        flex: 1 1 100%; /* Input group chiếm toàn bộ chiều rộng khả dụng */
+        min-width: auto; /* Loại bỏ min-width để input group tự động co lại */
+        margin-bottom: 10px; /* Thêm margin bottom giữa các input group */
+    }
+
+    .input-group:last-child {
+        margin-bottom: 0; /* Loại bỏ margin bottom cho input group cuối cùng */
+    }
+
+    .input-group label {
+        margin-bottom: 5px; /* Giảm margin bottom label mobile vừa */
+        font-size: 1rem; /* Giảm font size label mobile vừa */
+    }
+
+    .input-group input {
+        padding: 12px 15px; /* Giảm padding input mobile vừa */
+        font-size: 1rem; /* Giảm font size input mobile vừa */
+        border-radius: 10px; /* Giảm bo tròn input mobile vừa */
+    }
+
+    .button-group {
+        flex-direction: column; /* Button group thành column mobile vừa */
+        gap: 15px; /* Giảm gap button group mobile vừa */
+        margin-top: 15px; /* Giảm margin top button group mobile vừa */
+    }
+
+    .run-btn, .refresh-btn {
+        padding: 12px 25px; /* Giảm padding button mobile vừa */
+        font-size: 1rem; /* Giảm font size button mobile vừa */
+        border-radius: 10px; /* Giảm bo tròn button mobile vừa */
+        min-width: auto; /* Min width auto button mobile vừa */
+        width: 100%; /* Button full width mobile vừa */
+        display: block; /* Đảm bảo button hiển thị dạng block để chiếm full width */
+        margin-left: auto; /* Căn giữa button (kết hợp margin-right: auto;) */
+        margin-right: auto; /* Căn giữa button (kết hợp margin-left: auto;) */
+    }
+
+    .results-container {
+        gap: 20px; /* Giảm gap results container mobile vừa */
+        margin-bottom: 30px; /* Giảm margin bottom results container mobile vừa */
+    }
+
+    .section-title {
+        font-size: 1.3rem; /* Giảm font size section title mobile vừa */
+        margin-bottom: 8px; /* Giảm margin bottom section title mobile vừa */
+    }
+
+    .life-path-value {
+        font-size: 3.5rem; /* Giảm font size life path value mobile vừa */
+    }
+
+    .result-value {
+        font-size: 2rem; /* Giảm font size result value mobile vừa */
+    }
+
+    .minor-section {
+        grid-template-columns: 1fr; /* 1 cột minor section trên mobile vừa */
+        gap: 15px; /* Giảm gap minor section mobile vừa */
     }
 
     .minor-card {
-        padding: 15px; /* Giảm padding minor card mobile nhỏ */
-        border-radius: 10px; /* Giảm bo tròn minor card mobile nhỏ */
+        padding: 15px; /* Giảm padding minor card mobile vừa */
+        border-radius: 10px; /* Giảm bo tròn minor card mobile vừa */
     }
 
     .minor-title {
-        font-size: 0.9rem; /* Giảm font size minor title mobile nhỏ */
-        margin-bottom: 5px; /* Giảm margin bottom minor title mobile nhỏ */
+        font-size: 0.9rem; /* Giảm font size minor title mobile vừa */
+        margin-bottom: 5px; /* Giảm margin bottom minor title mobile vừa */
     }
 
     .minor-value {
-        font-size: 2rem; /* Giảm font size minor value mobile nhỏ */
+        font-size: 2rem; /* Giảm font size minor value mobile vừa */
     }
 
     .footer {
-        margin-top: 30px; /* Giảm margin top footer mobile nhỏ */
-        padding-bottom: 20px; /* Giảm padding bottom footer mobile nhỏ */
-        font-size: 0.8rem; /* Giảm font size footer mobile nhỏ */
-        padding-top: 15px; /* Giảm padding top footer mobile nhỏ */
+        margin-top: 30px; /* Giảm margin top footer mobile vừa */
+        padding-bottom: 20px; /* Giảm padding bottom footer mobile vừa */
+        font-size: 0.8rem; /* Giảm font size footer mobile vừa */
+        padding-top: 15px; /* Giảm padding top footer mobile vừa */
+    }
+}
+
+
+@media (max-width: 480px) { /* Breakpoint cho mobile nhỏ (480px) */
+    .container {
+        padding: 15px; /* Giảm padding container mobile nhỏ hơn */
+        border-radius: 10px; /* Giảm bo tròn container mobile nhỏ hơn */
+    }
+
+    .header h1 {
+        font-size: 1.8rem; /* Giảm font size tiêu đề mobile nhỏ hơn */
+    }
+
+    .header p {
+        font-size: 0.9rem; /* Giảm font size mô tả header mobile nhỏ hơn */
+    }
+
+    .input-section {
+        padding: 15px; /* Giảm padding input section mobile nhỏ hơn */
+        border-radius: 10px; /* Giảm bo tròn input section mobile nhỏ hơn */
+        gap: 10px; /* Giảm gap input section mobile nhỏ hơn */
+        margin-bottom: 20px; /* Giảm margin bottom input section mobile nhỏ hơn */
+    }
+
+    .input-group {
+        flex: 1 1 100%; /* Input group chiếm toàn bộ chiều rộng khả dụng */
+        margin-bottom: 8px; /* Giảm margin bottom input group mobile nhỏ hơn */
+    }
+
+    .input-group label {
+        margin-bottom: 3px; /* Giảm margin bottom label mobile nhỏ hơn */
+        font-size: 0.9rem; /* Giảm font size label mobile nhỏ hơn */
+    }
+
+    .input-group input {
+        padding: 10px 12px; /* Giảm padding input mobile nhỏ hơn */
+        font-size: 0.9rem; /* Giảm font size input mobile nhỏ hơn */
+        border-radius: 8px; /* Giảm bo tròn input mobile nhỏ hơn */
+    }
+
+    .button-group {
+        gap: 10px; /* Giảm gap button group mobile nhỏ hơn */
+        margin-top: 10px; /* Giảm margin top button group mobile nhỏ hơn */
+    }
+
+    .run-btn, .refresh-btn {
+        padding: 10px 20px; /* Giảm padding button mobile nhỏ hơn */
+        font-size: 0.9rem; /* Giảm font size button mobile nhỏ hơn */
+        border-radius: 8px; /* Giảm bo tròn button mobile nhỏ hơn */
+        min-width: auto; /* Min width auto button mobile nhỏ hơn */
+        width: 100%; /* Button full width mobile nhỏ hơn */
+    }
+
+    .results-container {
+        gap: 15px; /* Giảm gap results container mobile nhỏ hơn */
+        margin-bottom: 20px; /* Giảm margin bottom results container mobile nhỏ hơn */
+    }
+
+    .section-title {
+        font-size: 1.2rem; /* Giảm font size section title mobile nhỏ hơn */
+        margin-bottom: 6px; /* Giảm margin bottom section title mobile nhỏ hơn */
+    }
+
+    .life-path-value {
+        font-size: 3rem; /* Giảm font size life path value mobile nhỏ hơn */
+    }
+
+    .result-value {
+        font-size: 1.8rem; /* Giảm font size result value mobile nhỏ hơn */
+    }
+
+    .minor-section {
+        gap: 10px; /* Giảm gap minor section mobile nhỏ hơn */
+    }
+
+    .minor-card {
+        padding: 12px; /* Giảm padding minor card mobile nhỏ hơn */
+        border-radius: 8px; /* Giảm bo tròn minor card mobile nhỏ hơn */
+    }
+
+    .minor-title {
+        font-size: 0.8rem; /* Giảm font size minor title mobile nhỏ hơn */
+        margin-bottom: 3px; /* Giảm margin bottom minor title mobile nhỏ hơn */
+    }
+
+    .minor-value {
+        font-size: 1.8rem; /* Giảm font size minor value mobile nhỏ hơn */
+    }
+
+    .footer {
+        margin-top: 20px; /* Giảm margin top footer mobile nhỏ hơn */
+        padding-bottom: 15px; /* Giảm padding bottom footer mobile nhỏ hơn */
+        font-size: 0.7rem; /* Giảm font size footer mobile nhỏ hơn */
+        padding-top: 10px; /* Giảm padding top footer mobile nhỏ hơn */
     }
 }
