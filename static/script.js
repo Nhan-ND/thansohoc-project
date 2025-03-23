@@ -44,16 +44,75 @@
             const calculateBtn = document.getElementById('calculateBtn');
             const refreshBtn = document.getElementById('refreshBtn');
             const resultsContainer = document.querySelector('.results-container');
-            const formSection = document.querySelector('.input-section');
+            const formElement = document.querySelector('form'); // Lấy thẻ form
 
             if (calculateBtn) {
-                calculateBtn.style.display = 'block'; // Show calculate button initially
+                calculateBtn.style.display = 'block';
             }
             if (refreshBtn) {
-                refreshBtn.style.display = 'none'; // Hide refresh button initially
+                refreshBtn.style.display = 'none';
             }
             if (resultsContainer) {
-                resultsContainer.classList.add('hidden'); // Hide results initially using class
-                resultsContainer.style.display = 'none'; // Also hide results container by default
+                resultsContainer.classList.add('hidden');
+                resultsContainer.style.display = 'none';
+            }
+
+            // Thêm event listener cho form submit
+            if (formElement) {
+                formElement.addEventListener('submit', function(event) {
+                    event.preventDefault(); // Chặn hành vi submit form mặc định
+
+                    const fullName = document.getElementById('fullName').value;
+                    const birthday = document.getElementById('birthday').value;
+
+                    if (!fullName || !birthday) {
+                        alert('Vui lòng nhập đầy đủ Họ và tên và Ngày sinh.');
+                        return;
+                    }
+
+                    // Gọi API /api/calculate bằng fetch
+                    fetch('/api/calculate', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json' // Báo cho server biết dữ liệu là JSON
+                        },
+                        body: JSON.stringify({ fullName: fullName, birthday: birthday }) // Gửi dữ liệu JSON
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            // Xử lý lỗi HTTP (ví dụ: 400, 500)
+                            return response.json().then(err => {
+                                throw new Error(`Lỗi từ server: ${response.status} - ${err.error || 'Unknown error'}`);
+                            });
+                        }
+                        return response.json(); // Parse JSON response nếu thành công
+                    })
+                    .then(data => {
+                        // Hiển thị kết quả lên trang
+                        document.getElementById('lifePath').textContent = data.lifePath;
+                        document.getElementById('destiny').textContent = data.destiny;
+                        document.getElementById('destinyChallenge').textContent = data.destinyChallenge;
+                        document.getElementById('soul').textContent = data.soul;
+                        document.getElementById('soulChallenge').textContent = data.soulChallenge;
+                        document.getElementById('personality').textContent = data.personality;
+                        document.getElementById('personalityChallenge').textContent = data.personalityChallenge;
+                        document.getElementById('attitude').textContent = data.attitude;
+                        document.getElementById('talent').textContent = data.talent;
+                        document.getElementById('maturity').textContent = data.maturity;
+                        document.getElementById('rational').textContent = data.rational;
+                        document.getElementById('overcome').textContent = data.overcome;
+
+                        resultsContainer.classList.remove('hidden'); // Hiển thị container kết quả
+                        resultsContainer.style.display = 'flex'; // Đảm bảo hiển thị flex (nếu cần)
+                        formElement.style.display = 'none'; // Ẩn form
+                        if (refreshBtn) {
+                            refreshBtn.style.display = 'block'; // Hiển thị nút Nhập Mới
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Lỗi khi gọi API:', error);
+                        alert('Có lỗi xảy ra khi tính toán. Vui lòng thử lại sau.'); // Hiển thị thông báo lỗi cho người dùng
+                    });
+                });
             }
         });
