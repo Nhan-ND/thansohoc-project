@@ -30,19 +30,10 @@
         // Call the function when the page loads
         window.addEventListener('load', createStars);
 
-        function refreshPage() {
-            document.querySelector('.results-container').classList.add('hidden');
-            document.getElementById('fullName').value = '';
-            document.getElementById('birthday').value = '';
-            document.querySelector('form').style.display = 'block'; // Show form
-            document.querySelector('.results-container').style.display = 'none'; // Hide results
-        }
-
-        document.getElementById('refreshBtn').addEventListener('click', refreshPage);
 
         document.addEventListener('DOMContentLoaded', function() {
             const calculateBtn = document.getElementById('calculateBtn');
-            const refreshBtn = document.getElementById('refreshBtn');
+            const refreshBtn = document.getElementById('refreshBtn'); // Dòng này vẫn tồn tại, nhưng không gây lỗi vì không dùng nữa
             const resultsContainer = document.querySelector('.results-container');
             const formElement = document.querySelector('form'); // Lấy thẻ form
 
@@ -50,7 +41,7 @@
                 calculateBtn.style.display = 'block';
             }
             if (refreshBtn) {
-                refreshBtn.style.display = 'none';
+                refreshBtn.style.display = 'none'; // Dòng này vẫn tồn tại, không ảnh hưởng vì refreshBtn có thể là null
             }
             if (resultsContainer) {
                 resultsContainer.classList.add('hidden');
@@ -128,8 +119,8 @@
                         resultsContainer.classList.remove('hidden'); // Hiển thị container kết quả
                         resultsContainer.style.display = 'flex'; // Đảm bảo hiển thị flex (nếu cần)
                         formElement.style.display = 'none'; // Ẩn form
-                        if (refreshBtn) {
-                            refreshBtn.style.display = 'block'; // Hiển thị nút Nhập Mới
+                        if (refreshBtn) { // Dòng này và dòng dưới vẫn tồn tại, nhưng không gây lỗi dù refreshBtn có thể null
+                            refreshBtn.style.display = 'block';
                         }
                     })
                     .catch(error => {
